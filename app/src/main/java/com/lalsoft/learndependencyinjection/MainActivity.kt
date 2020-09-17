@@ -13,19 +13,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Initializing the classes
-        someClass = SomeClass()
         someOtherClass = SomeOtherClass()
+        someClass = SomeClass(someOtherClass)
+
 
         // Getting the functions inside the classes
         println(someClass.doAThing())
-        println(someOtherClass.doSomeOtherThing())
+        println(someClass.doSomeOtherThing())
 
     }
 }
 
-class SomeClass() {
+class SomeClass(
+        private val someOtherClass: SomeOtherClass
+) {
     fun doAThing(): String {
         return "Look i did a thing!!"
+    }
+    fun doSomeOtherThing():String{
+        return someOtherClass.doSomeOtherThing()
     }
 }
 
