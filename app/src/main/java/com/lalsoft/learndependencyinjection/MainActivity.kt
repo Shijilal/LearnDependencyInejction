@@ -2,40 +2,47 @@ package com.lalsoft.learndependencyinjection
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    lateinit var someClass: SomeClass
-    lateinit var someOtherClass: SomeOtherClass
+
+    lateinit var first: First
+
+    @Inject
+    lateinit var second: Second
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // Initializing the classes
-        someOtherClass = SomeOtherClass()
-        someClass = SomeClass(someOtherClass)
+        //second = Second()
+        first = First(second)
 
 
         // Getting the functions inside the classes
-        println(someClass.doAThing())
-        println(someClass.doSomeOtherThing())
+        println(first.doAThing())
+        println(first.doSomeOtherThing())
 
     }
 }
 
-class SomeClass(
-        private val someOtherClass: SomeOtherClass
+class First constructor(
+        private val second: Second
 ) {
     fun doAThing(): String {
         return "Look i did a thing!!"
     }
-    fun doSomeOtherThing():String{
-        return someOtherClass.doSomeOtherThing()
+
+    fun doSomeOtherThing(): String {
+        return second.doSomeOtherThing()
     }
 }
 
-class SomeOtherClass() {
+class Second @Inject constructor() {
     fun doSomeOtherThing(): String {
         return "Look i did some other thing!!"
     }
