@@ -3,15 +3,12 @@ package com.lalsoft.learndependencyinjection
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var first: First
-
-    @Inject
     lateinit var second: Second
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Initializing the classes
-        //second = Second()
+        second = Second()
         first = First(second)
 
 
@@ -30,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class First constructor(
+class First (
         private val second: Second
 ) {
     fun doAThing(): String {
@@ -42,7 +39,7 @@ class First constructor(
     }
 }
 
-class Second @Inject constructor() {
+class Second {
     fun doSomeOtherThing(): String {
         return "Look i did some other thing!!"
     }
