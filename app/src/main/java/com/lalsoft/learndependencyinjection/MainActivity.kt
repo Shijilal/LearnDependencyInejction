@@ -5,37 +5,37 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var someClass: SomeClass
-    lateinit var someOtherClass: SomeOtherClass
+    lateinit var first: First
+    lateinit var second: Second
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // Initializing the classes
-        someOtherClass = SomeOtherClass()
-        someClass = SomeClass(someOtherClass)
+        second = Second()
+        first = First(second)
 
 
         // Getting the functions inside the classes
-        println(someClass.doAThing())
-        println(someClass.doSomeOtherThing())
+        println(first.doAThing())
+        println(first.doSomeOtherThing())
 
     }
 }
 
-class SomeClass(
-        private val someOtherClass: SomeOtherClass
+class First(
+        private val second: Second
 ) {
     fun doAThing(): String {
         return "Look i did a thing!!"
     }
     fun doSomeOtherThing():String{
-        return someOtherClass.doSomeOtherThing()
+        return second.doSomeOtherThing()
     }
 }
 
-class SomeOtherClass() {
+class Second() {
     fun doSomeOtherThing(): String {
         return "Look i did some other thing!!"
     }
